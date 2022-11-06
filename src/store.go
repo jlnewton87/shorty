@@ -19,8 +19,8 @@ func (s *Store) init() {
 	defer db.Close()
 }
 
-func (s *Store) addShorty(key string, shorty *shortyReq) {
-	value := string(shorty.sType) + shorty.target
+func (s *Store) addShorty(key string, shortyType string, shortyTarget string) {
+	value := shortyType + shortyTarget
 	db, err := bolt.Open("./store.db", 0644, nil)
 	if err != nil {
 		log.Fatal(err)

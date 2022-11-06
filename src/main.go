@@ -69,16 +69,19 @@ func (a *app) addShorty(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	newShortyParams := make(map[string]string)
+
 	d := json.NewDecoder(r.Body)
-	newShorty := make(map[string]string)
-	err := d.Decode(&newShorty)
+	err := d.Decode(&newShortyParams)
 	if err != nil {
 		a.logFatal(err.Error())
 	}
-	sType := newShorty["sType"]
-	shortcut := newShorty["shortcut"]
-	target := newShorty["target"]
-	a.store.addShorty(shortcut, &shortyReq{sType: shortyType(sType), target: target})
+
+	sType := newShortyParams["sType"]
+	shortcut := newShortyParams["shortcut"]
+	target := newShortyParams["target"]
+
+	a.store.addShorty(shortcut, sType, target)
 	w.Write([]byte("Shorty Added!"))
 	return
 }
