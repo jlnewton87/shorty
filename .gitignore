@@ -1,3 +1,4 @@
 *.db
 shortyFilesDir/*
 addShorty.sh
+build/*
